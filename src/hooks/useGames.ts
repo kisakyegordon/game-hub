@@ -1,4 +1,5 @@
 import useData from "./useData";
+import type { Genre } from "./useGenres";
 
 export interface Platform {
   id: number;
@@ -15,6 +16,12 @@ export interface Game {
   platforms: { platform: Platform }[];
 }
 
-const useGames = () => useData<Game>("/games");
+const useGames = (selectedGenre: Genre | null | undefined) => {
+//   const params =
+//     gameParams !== undefined ? "?genres=" + gameParams.toLocaleLowerCase() : "";
+//   console.log("test: ", params);      
+  const url = "/games";
+  return useData<Game>(url, { params: { genres: selectedGenre?.slug } }, [selectedGenre]);
+};
 
 export default useGames;

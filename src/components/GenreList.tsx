@@ -1,8 +1,12 @@
-import { HStack, Image, List, ListItem, Spinner, Text } from "@chakra-ui/react";
-import useGenres from "../hooks/useGenres";
+import { Button, HStack, Image, List, ListItem, Spinner, Text } from "@chakra-ui/react";
+import useGenres, { type Genre } from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/getCroppedImageUrl";
 
-function GameGenres() {
+interface Props {
+  onSelectGenre:  (genre: Genre) => void
+}
+
+function GenreList({onSelectGenre}: Props) {
   const { data, error, isLoading } = useGenres();
 
   if (isLoading) return <Spinner />;
@@ -17,7 +21,7 @@ function GameGenres() {
               boxSize="32px"
               borderRadius={8}
             />
-            <Text fontSize="lg">{genre.name}</Text>
+            <Button onClick={() => onSelectGenre(genre)} fontSize="lg" variant='plain'>{genre.name}</Button>
           </HStack>
         </List.Item>
       ))}
@@ -25,4 +29,4 @@ function GameGenres() {
   );
 }
 
-export default GameGenres;
+export default GenreList;
