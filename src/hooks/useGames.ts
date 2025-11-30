@@ -16,12 +16,18 @@ export interface Game {
   platforms: { platform: Platform }[];
 }
 
-const useGames = (selectedGenre: Genre | null | undefined) => {
-//   const params =
-//     gameParams !== undefined ? "?genres=" + gameParams.toLocaleLowerCase() : "";
-//   console.log("test: ", params);      
+const useGames = (
+  selectedGenre: Genre | null | undefined,
+  selectedPlatform: Platform | null | undefined
+) => {
   const url = "/games";
-  return useData<Game>(url, { params: { genres: selectedGenre?.slug } }, [selectedGenre]);
+  return useData<Game>(
+    url,
+    {
+      params: { genres: selectedGenre?.slug, platforms: selectedPlatform?.id },
+    },
+    [selectedGenre, selectedPlatform]
+  );
 };
 
 export default useGames;
