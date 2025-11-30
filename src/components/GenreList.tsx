@@ -3,10 +3,11 @@ import useGenres, { type Genre } from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/getCroppedImageUrl";
 
 interface Props {
-  onSelectGenre:  (genre: Genre) => void
+  onSelectGenre:  (genre: Genre) => void;
+  selecteGenre: Genre | null | undefined;
 }
 
-function GenreList({onSelectGenre}: Props) {
+function GenreList({onSelectGenre, selecteGenre}: Props) {
   const { data, error, isLoading } = useGenres();
 
   if (isLoading) return <Spinner />;
@@ -21,7 +22,7 @@ function GenreList({onSelectGenre}: Props) {
               boxSize="32px"
               borderRadius={8}
             />
-            <Button onClick={() => onSelectGenre(genre)} fontSize="lg" variant='plain'>{genre.name}</Button>
+            <Button fontWeight={genre.id === selecteGenre?.id ? 'bold' : 'normal'} onClick={() => onSelectGenre(genre)} fontSize="lg" variant='plain'>{genre.name}</Button>
           </HStack>
         </List.Item>
       ))}
