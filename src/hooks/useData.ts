@@ -18,7 +18,6 @@ const useData = <T>(
 
   useEffect(
     () => {
-      console.log("params: ", requestConfig);
       const controller = new AbortController();
       setIsLoading(true);
       apiClient
